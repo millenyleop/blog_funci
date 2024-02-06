@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.olhardigital.com.br/wp-content/uploads/2018/02/20180227163527.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        form {
+        position: relative;
+        width: 400px; 
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        display: flex;
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+        margin: 300px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+}
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 36px;
+            color: #fff;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-decoration: none;
+           
+        }
+        input[type="submit"] {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #27274B;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 10px;
+        }
+        .button {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #27274B;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="/login">
+        <h2>Login</h2>
+        <label for="name">nome:</label>
+        <input type="text" name="nome" id="nome" required><br>
+
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" id="senha" required><br>
+
+        <input type="submit" value="Login">
+        
+ </form>       
+</body>
+</html>
