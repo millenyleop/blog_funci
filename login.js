@@ -84,13 +84,6 @@ app.get('/dash', (req, res) => {
   }
 });
 
-app.get('/teste', (req, res) => {
-  db.query('SELECT * FROM Postagens', (err, result) => {
-    if (err) throw err;
-    res.render('postagem', { Postagens: result });
-  });
-});
-
 app.post('/submit_post', (req, res) => {
   const { mensagens } = req.body;
   const sql = 'INSERT INTO Postagens (mensagens) VALUES (?)';
@@ -100,20 +93,78 @@ app.post('/submit_post', (req, res) => {
   });
 });
 
-app.get('/deletePostagens/:id', (req, res) => {
+app.post('/cadastro', (req, res) => {
+  const { username, email, password } = req.body;
+  const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+  db.query(sql, [username, email, password], (err, result) => {
+    if (err) {
+      console.error('Erro ao inserir usuário:', err);
+      res.redirect('/cadastro'); // Redireciona de volta ao formulário de cadastro em caso de erro
+    } else {
+      // Cadastro bem-sucedido; você pode redirecionar para a página de login ou outra página.
+      res.redirect('/');
+    }
+  });
+});
+
+// DELETE
+app.get('/delete/:id', (req, res) => {
   const { id } = req.params;
-  const sql = 'DELETE FROM Postagens WHERE _id = ?';
+  const sql = 'DELETE FROM users WHERE id = ?';
+  db.query(sql, [id], (err, result) => {
+    if (err) throw err;
+    res.redirect('/teste');
+  });
+});
+
+app.get('/delete2/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM Postagens WHERE id = ?';
+  console.log('Delete post')
+  
   db.query(sql, [id], (err, result) => {
     if (err) throw err;
     res.redirect('/postagem');
   });
 });
 
-app.get('/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/');
+
+
+// READ
+app.get('/postagem', (req, res) => {
+  db.query('SELECT * FROM Postagens', (err, result) => {
+    if (err) throw err;
+    res.render('postagem', { Postagens: result });
   });
 });
+
+    // Rota para a página do painel
+app.get('/dash', (req, res) => {
+
+
+
+  //
+  //
+  //
+  //modificação aqui
+  if (req.session.loggedin) {
+  //res.send(`Bem-vindo, ${req.session.username}!<br><a href="/logout">Sair</a>`);
+  res.sendFile(__dirname + '/views/dash.html');
+  } else {
+  res.send('Faça login para acessar esta página. <a href="/">Login</a>');
+  }
+  });
+  
+  // Rota para fazer logout
+  app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+  res.redirect('/');
+  });
+  });
+  
+    
+      
+
 
 const port = 3000;
 app.listen(port, () => {
